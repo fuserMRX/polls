@@ -2,9 +2,16 @@ import React from "react";
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
+import middleware from './middleware';
+import reducer from './reducers';
+import { LoadingBar } from "react-redux-loading-bar";
+
 import App from './components/App';
 import './index.css';
-import store from './store';
+
+import { createStore } from "redux";
+const store = createStore(reducer, middleware);
+
 
 function ColorfulBorder() {
   return (
@@ -16,6 +23,7 @@ function ColorfulBorder() {
         <li className='border-item' style={{ background: 'var(--yellow)' }} />
         <li className='border-item' style={{ background: 'var(--aqua)' }} />
       </ul>
+      <LoadingBar/>
     </>
   )
 }
