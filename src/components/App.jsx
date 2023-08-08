@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LeaderBoard from './Leaderboard';
 import Dashboard from './Dashboard';
 import AddPoll from './AddPoll';
+import Poll from './Poll';
+import Nav from './Nav';
 
 export default function App() {
     const dispatch = useDispatch();
@@ -19,7 +21,15 @@ export default function App() {
     return (
         <Router>
             <div className='container'>
-                {loading === true ? null : <AddPoll />}
+                <Nav />
+                {loading === true ? null :
+                    <Routes>
+                        <Route path='/' exact element={<Dashboard />}/>
+                        <Route path='/leaderboard' element={<LeaderBoard />}/>
+                        <Route path='/polls/:id' exact element={<Poll />}/>
+                        <Route path='/add' element={<AddPoll />}/>
+                    </Routes>
+                }
             </div>
         </Router>
     )
